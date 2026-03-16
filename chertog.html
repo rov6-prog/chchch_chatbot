@@ -4,8 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#080808">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="manifest" href="manifest.json">
 <title>#ЧЧЧ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;500;600&family=Unbounded:wght@200;400;700;900&display=swap" rel="stylesheet">
@@ -1580,41 +1582,7 @@ function escHtml(s) {
     .replace(/\n/g,'<br>');
 }
 
-// ====== PWA MANIFEST ======
-function generateIcon() {
-  const canvas = document.createElement('canvas');
-  canvas.width = 192; canvas.height = 192;
-  const ctx = canvas.getContext('2d');
-  ctx.fillStyle = '#080808';
-  ctx.fillRect(0, 0, 192, 192);
-  ctx.fillStyle = '#c8a87a';
-  ctx.font = 'bold 100px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText('Ч', 96, 100);
-  return canvas.toDataURL('image/png');
-}
-
-const iconData = generateIcon();
-const startUrl = location.pathname;
-const manifest = {
-  name: '#ЧЧЧ — Чертог',
-  short_name: 'ЧЧЧ',
-  id: startUrl,
-  start_url: startUrl,
-  scope: location.pathname.replace(/[^/]*$/, ''),
-  display: 'standalone',
-  background_color: '#080808',
-  theme_color: '#080808',
-  icons: [
-    { src: iconData, sizes: '192x192', type: 'image/png', purpose: 'any maskable' }
-  ]
-};
-const mblob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
-const mlink = document.createElement('link');
-mlink.rel = 'manifest';
-mlink.href = URL.createObjectURL(mblob);
-document.head.appendChild(mlink);
+// manifest подключён статично в head
 
 // ====== INIT ======
 loadAll();
